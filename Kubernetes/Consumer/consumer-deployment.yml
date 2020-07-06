@@ -1,0 +1,30 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: consumer
+spec:
+  replicas: REPLICAS
+  selector:
+    matchLabels:
+      component: consumer
+  template:
+    metadata:
+      labels:
+        component: consumer
+    spec:
+      containers:
+        - name: consumer
+          image: jorgeg/tfg:consumidor
+          command: ["python3"]
+          args: ["/consumer.py"]
+          imagePullPolicy: Always
+          resources:
+            requests:
+              cpu: 100m
+          env:
+          - name: CONSUMER_USERNAME
+            value: "CONSUMER_USERNAME_VALUE"
+          - name: CONSUMER_PASSWORD
+            value: "CONSUMER_PASSWORD_VALUE"
+          - name: CONSUMER_TOPIC
+            value: "CONSUMER_TOPIC_VALUE"

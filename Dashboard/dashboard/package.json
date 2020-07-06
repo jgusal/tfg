@@ -1,0 +1,25 @@
+{
+  "name": "Dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard del TFG",
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node src/app.js",
+    "dev": "nodemon src/app.js"
+  },
+  "keywords": [],
+  "author": "Jorge Gonzalez Escribano",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.2",
+    "express": "^4.17.1",
+    "express-session": "^1.17.0",
+    "jquery": "^3.4.1",
+    "mongoose": "^5.9.2",
+    "morgan": "^1.10.0",
+    "request": "^2.88.2"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.4"
+  }
+}

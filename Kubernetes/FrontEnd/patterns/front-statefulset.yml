@@ -1,0 +1,29 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: front
+  name: front
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: front
+  serviceName: front
+  template:
+    metadata:
+      labels:
+        app: front
+    spec:
+      containers:
+      - env:
+        - name: MONGO_URL
+          value: "mongodb://test_admin:1234@mongos-router-service:27017/tfg?authSource=admin"
+        - name: RECOMMENDATOR_URL
+          value: "ws://recommendation-service:8099"
+        image: jorgeg/tfg:front
+        imagePullPolicy: Always
+        name: front
+        ports:
+            - containerPort: 3000
+      dnsPolicy: ClusterFirst

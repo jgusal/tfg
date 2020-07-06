@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: kafka-GENERATED_ID
+spec:
+  ports:
+  - name: broker
+    port: GENERATED_PORT
+    protocol: TCP
+    targetPort: GENERATED_PORT
+    nodePort: GENERATED_PORT
+  selector:
+    statefulset.kubernetes.io/pod-name: kafka-GENERATED_ID
+  type: NodePort

@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongodb-shard-data-INST
+  labels:
+    type: local
+    app: mongo
+    target-service: mongo-shard
+spec:
+  capacity:
+    storage: SIZEGi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: /var/mongo-data/volume-shard-INST
+  persistentVolumeReclaimPolicy: Retain
+  storageClassName: shard-storage

@@ -1,0 +1,42 @@
+kind: StatefulSet
+apiVersion: apps/v1
+metadata:
+  labels:
+    app: kafka
+  name: kafka
+spec:
+  replicas: REPLICAS
+  selector:
+    matchLabels:
+      app: kafka
+  serviceName: kafka-headless
+  template:
+    metadata:
+      labels:
+        app: kafka
+    spec:
+      containers:
+      - command:
+        - bash
+        - kafka.sh
+        env:
+        - name: POD_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.podIP
+        - name: TOPICS
+          value: "TOPICS_VALUE"
+        - name: HOST_IP
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: status.hostIP
+        - name: EXTERNAL_IP
+          value: "EXTERNAL_IP_VALUE"
+        image: jorgeg/tfg:kafka
+        imagePullPolicy: Always
+        name: kafka-broker
+        ports:
+            - containerPort: 9092
+      dnsPolicy: ClusterFirst

@@ -1,0 +1,13 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: kafka
+spec:
+  type: ClusterIP
+  clusterIP: None
+  ports:
+    - name: broker
+      port: 9092
+      targetPort: 9092
+  selector:
+    app: kafka

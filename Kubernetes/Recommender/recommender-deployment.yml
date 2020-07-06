@@ -1,0 +1,44 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: recommender
+  labels:
+    name: recommender
+spec:
+  ports:
+  - port: 5000
+    targetPort: 5000
+  clusterIP: None
+  selector:
+    role: recommender
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: recommender
+spec:
+  selector:
+    matchLabels:
+      role: recommender
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        role: recommender
+    spec:
+      terminationGracePeriodSeconds: 10
+      containers:
+        - name: recommender
+          image: jorgeg/tfg:recommend
+          imagePullPolicy: Always
+          command: ["python3"]
+          args: ["api.py"]
+          env:
+          - name: MONGO_URL
+            value: "mongodb://test_admin:1234@mongos-router-service:27017/tfg?authSource=admin"
+          resources:
+            requests:
+              cpu: 0.1
+              memory: 512Mi
+          ports:
+            - containerPort: 5000
